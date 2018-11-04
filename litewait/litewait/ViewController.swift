@@ -22,6 +22,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var waitName: String = ""
     var locationX: Double = 0
     var locationY: Double = 0
+    var totalDistance: Double = 0
+    var uid: String = ""
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -34,6 +36,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let restaurantObj = self.restaurantList[indexPath.row] as Restaurant
         cell.RestaurantLabel.text = restaurantObj.getName()
         cell.WaitTimeLabel.text = restaurantObj.getWaitingTime()
+        cell.distanceLabel.text = restaurantObj.getAddress()
 
         return cell
     }
@@ -44,6 +47,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         waitName = restaurantList[indexPath.row].getWaitingTime()
         locationX = restaurantList[indexPath.row].getLocationx()
         locationY = restaurantList[indexPath.row].getLocationy()
+        uid = restaurantList[indexPath.row].getID()
         performSegue(withIdentifier: "A", sender: self)
     }
     
@@ -54,12 +58,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             dvc.waitName = waitName
             dvc.locationX = locationX
             dvc.locationY = locationY
+            dvc.uid = uid
         }
 
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupNavigationBarItems()
         
         ref = Database.database().reference()
         loadRestaurants()
@@ -69,6 +76,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let newcellNib = UINib(nibName: "NewTableViewCell", bundle: nil)
         tableView.register(newcellNib, forCellReuseIdentifier: "ReuseIdentifier")
         
+    }
+    
+    private func setupNavigationBarItems(){
+        let image = UIImage(named: "NavBar")
+        let titleImageView = UIImageView(image: image)
+        titleImageView.frame = CGRect(x: 0, y: 0, width: 34, height: 34)
+        titleImageView.contentMode = .scaleAspectFit
+        navigationItem.titleView = titleImageView
     }
 
     override func didReceiveMemoryWarning() {
@@ -115,20 +130,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    /*
-    @IBAction func waitChange(segue:UIStoryboardSegue) {
-        let comingFrom = segue.source as! RestaurantViewController
-        comingFrom.uwt
-       
-    }*/
+
 
 
 
