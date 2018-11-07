@@ -23,6 +23,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var locationX: Double = 0
     var locationY: Double = 0
     var totalDistance: Double = 0
+    var waitingTimeStamp :Int64 = 0
+    var uid: String = ""
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -46,6 +48,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         waitName = restaurantList[indexPath.row].getWaitingTime()
         locationX = restaurantList[indexPath.row].getLocationx()
         locationY = restaurantList[indexPath.row].getLocationy()
+        uid = restaurantList[indexPath.row].getID()
         performSegue(withIdentifier: "A", sender: self)
     }
     
@@ -56,6 +59,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             dvc.waitName = waitName
             dvc.locationX = locationX
             dvc.locationY = locationY
+            dvc.uid = uid
         }
 
     }
