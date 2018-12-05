@@ -126,8 +126,6 @@ class Restaurant{
     }
     
     
-    
-    
     //toString() function
     /**
     func toString(){
