@@ -31,6 +31,7 @@ class RestaurantViewController: UIViewController,
     var displayed: Bool = false
     var distanceInMeters: Double = 0
     var uid: String = ""
+    var address: String = ""
     
     //Authorization
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -61,10 +62,18 @@ class RestaurantViewController: UIViewController,
        
         let coordinates = CLLocationCoordinate2DMake(locationX, locationY)
 
+        let region = MKCoordinateRegionMake(coordinates, MKCoordinateSpanMake(0.01, 0.02))
+        
         let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
         let mapItem = MKMapItem(placemark: placemark)
         mapItem.name = "\(restaurantName)"
+        //mapItem.name = "\(address)"
         mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
+//        let options = [
+//            MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: region.center),
+//            MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: region.span)]
+//        mapItem.name = "\(restaurantName)"
+//        mapItem.openInMaps(launchOptions: options)
     }
     
 
@@ -82,8 +91,8 @@ class RestaurantViewController: UIViewController,
     }
     
     @IBAction func submitTime(_ sender: Any) {
-        if displayed == false && distanceInMeters >= 1000 {
-            self.Alert(Message: "You are too far away from the restaurant!")
+        if displayed == false && distanceInMeters >= 100 {
+            self.Alert(Message: "You can only update waiting time within 100 meters")
             displayed = true
         }
         performSegue(withIdentifier: "WaitTime", sender: self)
@@ -138,6 +147,7 @@ class RestaurantViewController: UIViewController,
         
         
     }
+    
     
     
 

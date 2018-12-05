@@ -24,6 +24,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var locationY: Double = 0
     var totalDistance: Double = 0
     var uid: String = ""
+    var address: String = ""
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -35,7 +36,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.imageContainer.image = UIImage(named: "texture")
         let restaurantObj = self.restaurantList[indexPath.row] as Restaurant
         cell.RestaurantLabel.text = restaurantObj.getName()
-        cell.WaitTimeLabel.text = restaurantObj.getWaitingTime()
+        if (restaurantObj.getWaitingTime() as NSString).integerValue > 200{
+            cell.WaitTimeLabel.text = "200+"
+        }else{
+            cell.WaitTimeLabel.text = restaurantObj.getWaitingTime()
+        }
         cell.distanceLabel.text = restaurantObj.getAddress()
 
         return cell
@@ -48,6 +53,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         locationX = restaurantList[indexPath.row].getLocationx()
         locationY = restaurantList[indexPath.row].getLocationy()
         uid = restaurantList[indexPath.row].getID()
+        address = restaurantList[indexPath.row].getAddress()
         performSegue(withIdentifier: "A", sender: self)
     }
     
@@ -59,6 +65,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             dvc.locationX = locationX
             dvc.locationY = locationY
             dvc.uid = uid
+            dvc.address = address
         }
 
     }
@@ -127,12 +134,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
         
-        
     }
-    
-
-
-
 
 }
 

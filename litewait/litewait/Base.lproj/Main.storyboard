@@ -188,14 +188,14 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OlZ-80-RzT">
                                 <rect key="frame" x="124" y="325" width="127" height="59"/>
-                                <color key="backgroundColor" red="0.0" green="0.2545474439" blue="0.56710379460000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="59" id="zrR-SA-eXn"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="SUBMIT">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="submitWaitTime:" destination="58V-Gm-aoT" eventType="touchUpInside" id="Sek-gu-SVD"/>
@@ -232,6 +232,7 @@
                         <viewLayoutGuide key="safeArea" id="Dwj-W0-Ziw"/>
                     </view>
                     <connections>
+                        <outlet property="submit_button" destination="OlZ-80-RzT" id="cq9-iR-RAL"/>
                         <outlet property="textField" destination="49X-uc-c5o" id="wtI-ey-nZW"/>
                         <segue destination="tz2-AC-vTg" kind="unwind" identifier="unwinds1" unwindAction="unwindhereWithSegue:" id="PEx-OE-oio"/>
                     </connections>

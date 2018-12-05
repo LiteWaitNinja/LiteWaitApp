@@ -13,6 +13,8 @@ class SubmitWaitTimeViewController: UIViewController {
     
     
     @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var submit_button: UIButton!
+    
     var waittime:Float = 0
     var uid: String = ""
     var ref:DatabaseReference?
@@ -24,6 +26,9 @@ class SubmitWaitTimeViewController: UIViewController {
         textField.layer.shadowRadius = 3.0
         textField.layer.shadowColor = UIColor.black.cgColor
         textField.layer.shadowOpacity = 1.0
+        
+        submit_button.layer.cornerRadius = 10.0
+        submit_button.layer.masksToBounds = true
         
         setupNavigationBarItems()
 
@@ -39,9 +44,23 @@ class SubmitWaitTimeViewController: UIViewController {
     
     @IBAction func submitWaitTime(_ sender: Any) {
         waittime = Float(textField.text!)!
-        performSegue(withIdentifier: "unwinds1", sender: self)
-        ref = Database.database().reference()
-        ref?.child("Restaurant").child(uid).updateChildValues(["waitingTime": self.textField.text!])
+        if Int(waittime) > 300 {
+            print("invaild waiting time!")
+            self.Alert(Message: "You can only update valid waiting time!")
+        }
+        else{
+            performSegue(withIdentifier: "unwinds1", sender: self)
+            ref = Database.database().reference()
+            ref?.child("Restaurant").child(uid).updateChildValues(["waitingTime": self.textField.text!])
+        }
+    }
+    
+    func Alert (Message: String){
+        let alert = UIAlertController(title: "Alert!", message: Message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+        
+        
     }
     
     /*
